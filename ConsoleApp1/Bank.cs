@@ -11,7 +11,6 @@ public class Bank
     public BankAccount GetBankAccountbyOwner(string name)
     {
         BankAccount bankAccount = null;
-        bool flaq = false;
         for (int i = 0; i < banksAccounts.Length; i++)
         {
             if (banksAccounts[i].OwnerName == name)
@@ -20,11 +19,11 @@ public class Bank
                 break;
                 
             }
-            else
-            {
-                Console.WriteLine("bele bir account yoxdu:");
-                flaq = true;
-            }
+            
+        }
+        if (bankAccount==null)
+        {
+            Console.WriteLine("Bele acc yoxdu");
         }
         return bankAccount;
     }
@@ -43,15 +42,24 @@ public class Bank
     }
     public void DeleteBankAccount(string name)
     {
-        BankAccount bankAccount = null;
-        for (int i = 0; i < banksAccounts.Length;i++)
+        BankAccount[] bankAccount = new BankAccount[banksAccounts.Length-1];
+        for (int i = 0; i < banksAccounts.Length; i++)
         {
-            if (banksAccounts[i].OwnerName == name)
+            if (banksAccounts[i].OwnerName==name)
             {
-                banksAccounts[i] = bankAccount;
-                Array.Resize(ref banksAccounts, banksAccounts.Length - 1);
+                banksAccounts[i] = null;
             }
         }
+
+        int j = 0;
+        for (int i = 0; i < banksAccounts.Length; i++)
+        {
+            if (banksAccounts[i]!=null)
+            {
+                bankAccount[j] = banksAccounts[i];
+            }
+        }
+        banksAccounts = bankAccount;
     }
 
 }
